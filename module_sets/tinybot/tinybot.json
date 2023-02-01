@@ -1,0 +1,44 @@
+{
+    "robot":{
+        "name": "tinybot",
+        "mount_tf": [0,0,0,0,0,0],
+        "initial_module": "base",
+        "modules": {
+            "base": {
+                "urdf_filename": "module_sets/tinybot/base.urdf",
+                "allow_connect":[
+                    "forearm_1"
+                ],
+                "connect_tf": [0,0,0,0,0,0],
+                "connect_link": "base_motor_link"
+            },
+            "forearm_1": {
+                "urdf_filename": "module_sets/tinybot/forearm_1.urdf",
+                "allow_connect":[
+                    "forearm_1"
+                ],
+                "connect_tf": [0,0,0,0,0,0],
+                "connect_link": "forearm_motor_link"
+            }
+        },
+        "output_urdf": "builded_cobot.urdf"
+    },
+    "world":{
+        "world_objects":{
+            "table":{
+                "urdf_filename": "tests/urdf/table.urdf",
+                "init_tf": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+                "save": true
+            },
+            "hole":{
+                "urdf_filename": "tests/urdf/hole_round.urdf",
+                "init_tf": [0.3, 0.1, 0.625, 0.0, 0.0, 0.0],
+                "random_tf_variation": [0.0, 0.0, 0.0, 0.0],
+                "save": true
+            }
+        }
+    },
+    "simulation": {
+        "gui": true
+    }
+}

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com)
+     Commit Version: 1.4.4-24-g24328f6  Build Version: 1.5.7084.36479
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot name="tinybot">
+  <link name="forearm_link">
+    <inertial>
+      <origin xyz="0.0079258 5.3524E-05 0.12812" rpy="0 0 0" />
+      <mass value="13.418" />
+      <inertia
+        ixx="0.13734"
+        ixy="3.8873E-05"
+        ixz="0.0035268"
+        iyy="0.14138"
+        iyz="0.00022692"
+        izz="0.11173" />
+    </inertial>
+    <visual>
+      <origin xyz="-0.03 -0.04 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="module_sets/tinybot/meshes/corner_p_list_X10.STL"  scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.5 0.5 0.5 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.03 -0.04 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="module_sets/tinybot/meshes/corner_p_list_X10.STL"  scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="forearm_motor_link">
+    <inertial>
+      <origin xyz="0.0 0 0.0" rpy="3.1415926535 0 0" />
+      <mass value="13.418" />
+      <inertia
+        ixx="0.13734"
+        ixy="3.8873E-05"
+        ixz="0.0035268"
+        iyy="0.14138"
+        iyz="0.00022692"
+        izz="0.11173" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 1.57079632679 0" />
+      <geometry>
+        <mesh filename="module_sets/tinybot/meshes/RMD-X10-S2-V3.STL"  scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.5 0.5 0.5 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 1.57079632679 0" />
+      <geometry>
+        <mesh filename="module_sets/tinybot/meshes/RMD-X10-S2-V3.STL"  scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+  <joint name="forearm_joint" type="continuous">
+    <origin xyz="0.033 -0.04 0.1" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <parent link="forearm_link"/>
+    <child link="forearm_motor_link"/>
+  </joint>
+</robot>

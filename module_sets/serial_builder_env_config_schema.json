@@ -1,0 +1,149 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$id": "serial_builder_schema",
+    "description": "Scheme for verification enviroment config",
+    "type": "object",
+    "properties": {
+        "robot":{
+            "type": "object",
+            "properties": {
+                "name":{
+                    "type": "string"
+                },
+                "mount_tf": {
+                    "$ref": "#/$defs/tf_config"
+                },
+                "initial_module":{
+                    "type": "string"
+                },
+                "max_N_modules":{
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 30,
+                    "default": 6
+                },
+                "output_urdf":{
+                    "type": "string",
+                    "default": "generated_model.urdf"
+                },
+                "modules": {
+                    "type": "object",
+                    "patternProperties": {
+                        "(.*?)":{
+                            "type": "object",
+                            "properties": {
+                                "urdf_filename": {
+                                    "type": "string"
+                                },
+                                "allow_connect":{
+                                    "type":"array",
+                                    "items":{
+                                        "type": "string"
+                                    }
+                                },
+                                "connect_tf": {
+                                    "$ref": "#/$defs/tf_config"
+                                },
+                                "connect_link":{
+                                    "type": "string"
+                                }
+                            },
+                            "additionalProperties": false,
+                            "required": ["urdf_filename", "allow_connect", "connect_tf", "connect_link"]
+                        }
+                    }
+                }
+            },
+            "additionalProperties": false,
+            "required": ["name", "mount_tf", "initial_module", "modules", "max_N_modules", "output_urdf"]
+        },
+        "world":{
+            "type": "object",
+            "properties":{
+                "world_objects":{
+                    "type": "object",
+                    "patternProperties": {
+                        "(.*?)":{
+                            "type": "object",
+                            "properties": {
+                                "fixed":{
+                                    "type":"boolean",
+                                    "default": true
+                                },
+                                "save":{
+                                    "type":"boolean",
+                                    "default": false
+                                },
+                                "urdf_filename": {
+                                    "type": "string"
+                                },
+                                "scale_size":{
+                                    "type": "number",
+                                    "default": 1.0
+                                },
+                                "init_tf": {
+                                    "$ref": "#/$defs/tf_config"
+                                },
+                                "random_tf_variation": {
+                                    "$ref": "#/$defs/random_tf_config",
+                                    "default": [0.0, 0.0, 0.0, 0.0]
+                                }
+                            },
+                            "additionalProperties": false,
+                            "required": ["urdf_filename", "init_tf"]
+                        }
+                    }
+                }
+            },
+            "additionalProperties": false,
+            "required": ["world_objects"]
+        },
+        "simulation":{
+            "type": "object",
+            "properties": {
+                "gui":{
+                    "type": "boolean",
+                    "default": false
+                },
+                "sim_time_scale":{
+                    "type": "number",
+                    "minimum": 1.0,
+                    "maximum": 1000.0,
+                    "default": 1.0
+                },
+                "time_step":{
+                    "type": "number",
+                    "minimum": 1e-6,
+                    "maximum": 1e-1,
+                    "default": 1e-2
+                },
+                "random_seed":{
+                    "type": "integer",
+                    "minimum": 0
+                }
+            },
+            "additionalProperties": false
+        }
+            
+    },
+    "required": ["world", "simulation"],
+    
+    "$defs": {
+        "random_tf_config": {
+            "type": "array",
+            "items":{
+                "type": "number"
+            },
+            "minItems": 4,
+            "maxItems": 4
+        },
+        "tf_config": {
+            "type": "array",
+            "items":{
+                "type": "number"
+            },
+            "minItems": 6,
+            "maxItems": 6
+        }
+    }
+}
